@@ -2,9 +2,11 @@
 
 Practice: Ramir landing rebuild (light consulting + dark LMS).
 
-## Preview (VPS tunnel, temporary)
-- Light: 
-- Dark: 
+## Files
+- ramir-consulting-light.html — light consulting rebuild (main practice)
+- ramir-landing-dark.html — dark LMS landing
+- workgraph.py — local task tracker CLI
 
-## Run locally
-
+## Run locally (VPS)
+python3 -m http.server 8080 --directory ~/workspace
+Open http://localhost:8080/ramir-consulting-light.html
