@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ramir Consulting — Practice Rebuild (Light)</title>
-<meta name="description" content="Practice rebuild inspired by ramirconsulting.com structure — light, navy, mobile-first." />
+<title>Ramir Consulting — Practice Rebuild (Light + Dark Mode)</title>
+<meta name="description" content="Practice rebuild inspired by ramirconsulting.com structure — light, navy, mobile-first, with dark mode toggle." />
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -22,127 +23,144 @@ tailwind.config = {
   }
 }
 </script>
+<script>
+/* Pre-paint theme: localStorage > prefers-color-scheme. Avoids FOUC. */
+(function () {
+  try {
+    var saved = localStorage.getItem('ramir-theme');
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) document.documentElement.classList.add('dark');
+  } catch (e) {}
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   body{font-family:'Inter',system-ui,sans-serif}
+  :root{color-scheme:light}
+  .dark{color-scheme:dark}
   :focus-visible{outline:2px solid #022135;outline-offset:3px;border-radius:6px}
+  .dark :focus-visible{outline-color:#7dd3fc}
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
-<body class="bg-white text-slate-900 antialiased">
+<body class="bg-white text-slate-900 antialiased dark:bg-navydeep dark:text-slate-100 transition-colors">
 
 <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-navy focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">Skip to content</a>
 
 <!-- HEADER -->
-<header class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+<header class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200 dark:bg-navydeep/90 dark:border-white/10 transition-colors">
   <div class="max-w-6xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
-    <a href="#" class="flex items-center gap-2 font-extrabold tracking-tight" aria-label="Ramir Consulting home">
-      <span aria-hidden="true" class="w-8 h-8 rounded-lg bg-navy text-white grid place-items-center font-black">R</span>
-      <span>Ramir<span class="text-slate-500 font-semibold"> Consulting</span></span>
+    <a href="#" class="flex items-center gap-2 font-extrabold tracking-tight dark:text-white" aria-label="Ramir Consulting home">
+      <span aria-hidden="true" class="w-8 h-8 rounded-lg bg-navy text-white grid place-items-center font-black dark:bg-sky-400 dark:text-navydeep">R</span>
+      <span>Ramir<span class="text-slate-500 font-semibold dark:text-slate-400"> Consulting</span></span>
     </a>
-    <nav aria-label="Navigasi utama" class="hidden lg:flex items-center gap-7 text-[15px] text-slate-600">
-      <a href="#cara-kerja" class="hover:text-navy">Cara Kerja</a>
-      <a href="#studi-kasus" class="hover:text-navy">Studi Kasus</a>
-      <a href="#tim-kami" class="hover:text-navy">Tim Kami</a>
-      <a href="#solusi" class="hover:text-navy inline-flex items-center gap-1">Layanan <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      <a href="#" class="hover:text-navy">Insight</a>
-      <a href="#" class="hover:text-navy">Tentang</a>
+    <nav aria-label="Navigasi utama" class="hidden lg:flex items-center gap-7 text-[15px] text-slate-600 dark:text-slate-300">
+      <a href="#cara-kerja" class="hover:text-navy dark:hover:text-white">Cara Kerja</a>
+      <a href="#studi-kasus" class="hover:text-navy dark:hover:text-white">Studi Kasus</a>
+      <a href="#tim-kami" class="hover:text-navy dark:hover:text-white">Tim Kami</a>
+      <a href="#solusi" class="hover:text-navy dark:hover:text-white inline-flex items-center gap-1">Layanan <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#" class="hover:text-navy dark:hover:text-white">Insight</a>
+      <a href="#" class="hover:text-navy dark:hover:text-white">Tentang</a>
     </nav>
     <div class="flex items-center gap-3">
+      <button id="themeBtn" type="button" class="p-2 rounded-lg border border-slate-200 dark:border-white/20 text-slate-600 dark:text-slate-200 hover:border-navy dark:hover:border-sky-300 transition" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+        <span id="themeIconSun" aria-hidden="true">🌙</span>
+        <span id="themeIconMoon" aria-hidden="true" class="hidden">☀️</span>
+      </button>
       <a href="#cta" class="text-sm font-semibold text-white bg-[#B51713] px-5 py-2 rounded-[99px] shadow-sm hover:bg-[#8F1310] transition inline-flex items-center gap-1.5">Konsultasi Gratis <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      <button id="menuBtn" class="lg:hidden p-2 rounded-lg border border-slate-200" aria-expanded="false" aria-controls="mobileMenu" aria-label="Buka menu">☰</button>
+      <button id="menuBtn" class="lg:hidden p-2 rounded-lg border border-slate-200 dark:border-white/20 dark:text-white" aria-expanded="false" aria-controls="mobileMenu" aria-label="Buka menu">☰</button>
     </div>
   </div>
-  <nav id="mobileMenu" aria-label="Mobile" class="lg:hidden hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3 text-slate-700">
+  <nav id="mobileMenu" aria-label="Mobile" class="lg:hidden hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3 text-slate-700 dark:bg-navydeep dark:border-white/10 dark:text-slate-200">
     <a href="#cara-kerja" class="block">Cara Kerja</a>
     <a href="#studi-kasus" class="block">Studi Kasus</a>
     <a href="#tim-kami" class="block">Tim Kami</a>
     <a href="#solusi" class="block">Layanan <span aria-hidden="true" class="text-xs">▾</span></a>
-    <a href="#cta" class="block font-semibold text-navy">Konsultasi Gratis →</a>
+    <a href="#cta" class="block font-semibold text-navy dark:text-sky-300">Konsultasi Gratis →</a>
   </nav>
 </header>
 
 <main id="main" class="pt-16">
 <!-- HERO -->
-<section aria-labelledby="hero-title" class="bg-mist border-b border-slate-200">
+<section aria-labelledby="hero-title" class="bg-mist border-b border-slate-200 dark:bg-navydeep dark:border-white/10 transition-colors">
   <div class="max-w-6xl mx-auto px-5 md:px-8 py-12 md:py-20 grid md:grid-cols-2 gap-10 items-center">
     <div>
-      <p class="inline-flex items-center gap-2 text-xs font-semibold tracking-wide uppercase bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full">
+      <p class="inline-flex items-center gap-2 text-xs font-semibold tracking-wide uppercase bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-full dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
         <span aria-hidden="true" class="w-2 h-2 rounded-full bg-emerald-500"></span>
         Ramir Operating System • Human Expert QA
       </p>
-      <h1 id="hero-title" class="mt-5 text-4xl md:text-5xl font-extrabold leading-[1.08] tracking-tight">
-        Bisnis kamu layak punya <span class="underline decoration-red-200 decoration-4 underline-offset-4">keuangan yang benar</span>
+      <h1 id="hero-title" class="mt-5 text-4xl md:text-5xl font-extrabold leading-[1.08] tracking-tight dark:text-white">
+        Bisnis kamu layak punya <span class="underline decoration-red-200 decoration-4 underline-offset-4 dark:decoration-sky-400/60">keuangan yang benar</span>
       </h1>
-      <p class="mt-4 text-slate-600 text-base md:text-lg leading-relaxed max-w-xl">
+      <p class="mt-4 text-slate-600 dark:text-slate-300 text-base md:text-lg leading-relaxed max-w-xl">
         <!-- OhmDev sync test: if you see this in VSCode, pull worked -->
         Rapikan pembukuan berantakan jadi laporan akurat yang bisa dipakai ambil keputusan — cepat, terkontrol, berbasis data.
       </p>
       <div class="mt-4 flex flex-wrap gap-2 text-xs font-semibold">
-        <span class="bg-white border border-slate-200 rounded-full px-3 py-1">⚡ 10 Hari Kerja</span>
-        <span class="bg-white border border-slate-200 rounded-full px-3 py-1">✓ Akurasi 94%</span>
-        <span class="bg-white border border-slate-200 rounded-full px-3 py-1">☁ Cloud ERP Setup</span>
+        <span class="bg-white border border-slate-200 rounded-full px-3 py-1 dark:bg-white/5 dark:border-white/10 dark:text-slate-200">⚡ 10 Hari Kerja</span>
+        <span class="bg-white border border-slate-200 rounded-full px-3 py-1 dark:bg-white/5 dark:border-white/10 dark:text-slate-200">✓ Akurasi 94%</span>
+        <span class="bg-white border border-slate-200 rounded-full px-3 py-1 dark:bg-white/5 dark:border-white/10 dark:text-slate-200">☁ Cloud ERP Setup</span>
       </div>
       <div class="mt-7 flex flex-wrap gap-3">
-        <a href="#cta" class="font-bold bg-navy text-white px-6 py-3 rounded-xl hover:bg-navydeep transition">KONSULTASI GRATIS SEKARANG</a>
-        <a href="#solusi" class="font-semibold px-6 py-3 rounded-xl border border-slate-300 bg-white hover:border-navy transition">Diskusikan Kondisi Bisnis</a>
+        <a href="#cta" class="font-bold bg-navy text-white px-6 py-3 rounded-xl hover:bg-navydeep transition dark:bg-sky-400 dark:text-navydeep dark:hover:bg-sky-300">KONSULTASI GRATIS SEKARANG</a>
+        <a href="#solusi" class="font-semibold px-6 py-3 rounded-xl border border-slate-300 bg-white hover:border-navy transition dark:bg-white/5 dark:border-white/20 dark:text-white dark:hover:border-sky-300">Diskusikan Kondisi Bisnis</a>
       </div>
-      <p class="mt-6 text-sm text-slate-500">Dipercaya <strong class="text-navy">100+ UMKM & Bisnis Menengah</strong> • FMCG • F&B • MFG</p>
+      <p class="mt-6 text-sm text-slate-500 dark:text-slate-400">Dipercaya <strong class="text-navy dark:text-white">100+ UMKM & Bisnis Menengah</strong> • FMCG • F&B • MFG</p>
     </div>
-    <div class="rounded-2xl bg-white border border-slate-200 p-5 shadow-xl" role="img" aria-label="Ilustrasi dashboard keuangan practice">
+    <div class="rounded-2xl bg-white border border-slate-200 p-5 shadow-xl dark:bg-white/5 dark:border-white/10 dark:shadow-black/40" role="img" aria-label="Ilustrasi dashboard keuangan practice">
       <div class="flex items-center gap-2 mb-4" aria-hidden="true">
         <span class="w-3 h-3 rounded-full bg-[#FF5F57]"></span>
         <span class="w-3 h-3 rounded-full bg-[#FEBC2E]"></span>
         <span class="w-3 h-3 rounded-full bg-[#28C840]"></span>
       </div>
-      <p class="text-sm font-semibold">Pertumbuhan Margin</p>
-      <p class="text-3xl font-extrabold text-emerald-600 mt-1">+15% - 30%</p>
+      <p class="text-sm font-semibold dark:text-white">Pertumbuhan Margin</p>
+      <p class="text-3xl font-extrabold text-emerald-600 mt-1 dark:text-emerald-400">+15% - 30%</p>
       <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
-        <div class="rounded-xl bg-mist border border-slate-200 p-3"><p class="font-bold">10 Hari</p><p class="text-xs text-slate-500">Turnaround</p></div>
-        <div class="rounded-xl bg-mist border border-slate-200 p-3"><p class="font-bold">94%</p><p class="text-xs text-slate-500">Akurasi SAK</p></div>
+        <div class="rounded-xl bg-mist border border-slate-200 p-3 dark:bg-white/5 dark:border-white/10"><p class="font-bold dark:text-white">10 Hari</p><p class="text-xs text-slate-500 dark:text-slate-400">Turnaround</p></div>
+        <div class="rounded-xl bg-mist border border-slate-200 p-3 dark:bg-white/5 dark:border-white/10"><p class="font-bold dark:text-white">94%</p><p class="text-xs text-slate-500 dark:text-slate-400">Akurasi SAK</p></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- SOLUSI -->
-<section id="solusi" aria-labelledby="solusi-title" class="bg-mist">
+<section id="solusi" aria-labelledby="solusi-title" class="bg-mist dark:bg-navy transition-colors">
   <div class="max-w-6xl mx-auto px-5 md:px-8 py-14 md:py-20">
-    <h2 id="solusi-title" class="text-2xl md:text-3xl font-extrabold tracking-tight text-center">Pilih tantangan bisnis yang sedang kamu hadapi</h2>
+    <h2 id="solusi-title" class="text-2xl md:text-3xl font-extrabold tracking-tight text-center dark:text-white">Pilih tantangan bisnis yang sedang kamu hadapi</h2>
     <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      <article class="rounded-2xl bg-white border border-slate-200 p-6 hover:border-navy/40 transition"><h3 class="font-bold">Financial & Accounting</h3><p class="mt-2 text-sm text-slate-600">Rapikan fondasi & laporan siap keputusan.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold text-navy">Lihat detail →</a></article>
-      <article class="rounded-2xl bg-white border border-slate-200 p-6 hover:border-navy/40 transition"><h3 class="font-bold">ERP & Cloud Operations</h3><p class="mt-2 text-sm text-slate-600">Satukan finance, stok, operasional.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold text-navy">Lihat detail →</a></article>
-      <article class="rounded-2xl bg-white border border-slate-200 p-6 hover:border-navy/40 transition"><h3 class="font-bold">Market & Growth</h3><p class="mt-2 text-sm text-slate-600">Ubah insight jadi pipeline.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold text-navy">Lihat detail →</a></article>
+      <article class="rounded-2xl bg-white border border-slate-200 p-6 hover:border-navy/40 transition dark:bg-white/5 dark:border-white/10 dark:hover:border-sky-300/40"><h3 class="font-bold dark:text-white">Financial & Accounting</h3><p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Rapikan fondasi & laporan siap keputusan.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold text-navy dark:text-sky-300">Lihat detail →</a></article>
+      <article class="rounded-2xl bg-white border border-slate-200 p-6 hover:border-navy/40 transition dark:bg-white/5 dark:border-white/10 dark:hover:border-sky-300/40"><h3 class="font-bold dark:text-white">ERP & Cloud Operations</h3><p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Satukan finance, stok, operasional.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold text-navy dark:text-sky-300">Lihat detail →</a></article>
+      <article class="rounded-2xl bg-white border border-slate-200 p-6 hover:border-navy/40 transition dark:bg-white/5 dark:border-white/10 dark:hover:border-sky-300/40"><h3 class="font-bold dark:text-white">Market & Growth</h3><p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Ubah insight jadi pipeline.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold text-navy dark:text-sky-300">Lihat detail →</a></article>
       <article class="rounded-2xl bg-navy text-white rounded-2xl p-6"><h3 class="font-bold">AI & Tech Solutions</h3><p class="mt-2 text-sm text-slate-300">Orkestrasi AI + workflow cepat.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold underline">Lihat detail →</a></article>
     </div>
   </div>
 </section>
 
 <!-- STATS -->
-<section aria-label="Statistik" class="bg-white border-y border-slate-200">
+<section aria-label="Statistik" class="bg-white border-y border-slate-200 dark:bg-navydeep dark:border-white/10 transition-colors">
   <div class="max-w-6xl mx-auto px-5 md:px-8 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-    <div><p class="text-3xl font-extrabold text-navy">100+</p><p class="text-sm text-slate-500">Bisnis dipercaya</p></div>
-    <div><p class="text-3xl font-extrabold text-navy">10 Hari</p><p class="text-sm text-slate-500">Rata-rata selesai</p></div>
-    <div><p class="text-3xl font-extrabold text-navy">94%</p><p class="text-sm text-slate-500">Akurasi SAK</p></div>
-    <div><p class="text-3xl font-extrabold text-emerald-600">15-30%</p><p class="text-sm text-slate-500">Margin diselamatkan</p></div>
+    <div><p class="text-3xl font-extrabold text-navy dark:text-white">100+</p><p class="text-sm text-slate-500 dark:text-slate-400">Bisnis dipercaya</p></div>
+    <div><p class="text-3xl font-extrabold text-navy dark:text-white">10 Hari</p><p class="text-sm text-slate-500 dark:text-slate-400">Rata-rata selesai</p></div>
+    <div><p class="text-3xl font-extrabold text-navy dark:text-white">94%</p><p class="text-sm text-slate-500 dark:text-slate-400">Akurasi SAK</p></div>
+    <div><p class="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400">15-30%</p><p class="text-sm text-slate-500 dark:text-slate-400">Margin diselamatkan</p></div>
   </div>
 </section>
 
 <!-- DIAGNOSA -->
-<section aria-labelledby="diag-title" class="bg-slate-50">
+<section aria-labelledby="diag-title" class="bg-slate-50 dark:bg-navy transition-colors">
   <div class="max-w-6xl mx-auto px-5 md:px-8 py-14 md:py-20">
-    <h2 id="diag-title" class="text-2xl md:text-3xl font-extrabold text-center">Apakah bisnis kamu mengalami ini?</h2>
+    <h2 id="diag-title" class="text-2xl md:text-3xl font-extrabold text-center dark:text-white">Apakah bisnis kamu mengalami ini?</h2>
     <div class="mt-10 grid md:grid-cols-3 gap-5">
-      <article class="rounded-2xl bg-white border border-slate-200 p-6"><p class="text-xs font-bold text-red-600 uppercase">Cash Flow</p><h3 class="mt-2 font-bold">Omset besar, saldo kosong?</h3><p class="mt-2 text-sm text-slate-600">Uang habis untuk supplier & tagihan tak terduga.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold text-navy">Solusikan →</a></article>
-      <article class="rounded-2xl bg-white border border-slate-200 p-6"><p class="text-xs font-bold text-amber-600 uppercase">Akuntansi</p><h3 class="mt-2 font-bold">Laporan telat & pakai feeling?</h3><p class="mt-2 text-sm text-slate-600">Data di Excel manual, harga salah pasang.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold text-navy">Solusikan →</a></article>
-      <article class="rounded-2xl bg-white border border-slate-200 p-6"><p class="text-xs font-bold text-sky-700 uppercase">Operasional</p><h3 class="mt-2 font-bold">Stok selisih & SOP macet?</h3><p class="mt-2 text-sm text-slate-600">Gudang selisih, piutang macet, tim berantakan.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold text-navy">Solusikan →</a></article>
+      <article class="rounded-2xl bg-white border border-slate-200 p-6 dark:bg-white/5 dark:border-white/10"><p class="text-xs font-bold text-red-600 uppercase dark:text-red-400">Cash Flow</p><h3 class="mt-2 font-bold dark:text-white">Omset besar, saldo kosong?</h3><p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Uang habis untuk supplier & tagihan tak terduga.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold text-navy dark:text-sky-300">Solusikan →</a></article>
+      <article class="rounded-2xl bg-white border border-slate-200 p-6 dark:bg-white/5 dark:border-white/10"><p class="text-xs font-bold text-amber-600 uppercase dark:text-amber-400">Akuntansi</p><h3 class="mt-2 font-bold dark:text-white">Laporan telat & pakai feeling?</h3><p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Data di Excel manual, harga salah pasang.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold text-navy dark:text-sky-300">Solusikan →</a></article>
+      <article class="rounded-2xl bg-white border border-slate-200 p-6 dark:bg-white/5 dark:border-white/10"><p class="text-xs font-bold text-sky-700 uppercase dark:text-sky-300">Operasional</p><h3 class="mt-2 font-bold dark:text-white">Stok selisih & SOP macet?</h3><p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Gudang selisih, piutang macet, tim berantakan.</p><a href="#cta" class="mt-4 inline-block text-sm font-semibold text-navy dark:text-sky-300">Solusikan →</a></article>
     </div>
   </div>
 </section>
 
 <!-- CARA KERJA -->
-<section id="cara-kerja" aria-labelledby="cara-title" class="bg-navy text-white">
+<section id="cara-kerja" aria-labelledby="cara-title" class="bg-navy text-white dark:bg-black transition-colors">
   <div class="max-w-6xl mx-auto px-5 md:px-8 py-14 md:py-20">
     <h2 id="cara-title" class="text-2xl md:text-3xl font-extrabold text-center text-white">Bagaimana Ramir Bekerja?</h2>
     <p class="text-center text-slate-300 mt-3 max-w-xl mx-auto">4 langkah sistematis: dari fondasi berantakan hingga akselerasi terukur.</p>
@@ -156,47 +174,47 @@ tailwind.config = {
 </section>
 
 <!-- STUDI KASUS + TESTI -->
-<section id="studi-kasus" aria-labelledby="case-title" class="bg-slate-50 border-y border-slate-200">
+<section id="studi-kasus" aria-labelledby="case-title" class="bg-slate-50 border-y border-slate-200 dark:bg-navydeep dark:border-white/10 transition-colors">
   <div class="max-w-6xl mx-auto px-5 md:px-8 py-14 md:py-20">
-    <h2 id="case-title" class="text-2xl md:text-3xl font-extrabold text-center">Belajar dari pola yang kami benahi</h2>
+    <h2 id="case-title" class="text-2xl md:text-3xl font-extrabold text-center dark:text-white">Belajar dari pola yang kami benahi</h2>
     <div class="mt-10 grid md:grid-cols-3 gap-5">
-      <figure class="rounded-2xl bg-white border p-6"><blockquote class="text-sm">“Laporan laba rugi keluar tiap tanggal 5. Buka 3 cabang tanpa pusing.”</blockquote><figcaption class="mt-3 text-xs text-slate-500">FMCG • Multi-cabang</figcaption></figure>
-      <figure class="rounded-2xl bg-white border p-6"><blockquote class="text-sm">“HPP dihitung sampai gram terkecil. Biaya bahan turun 22%.”</blockquote><figcaption class="mt-3 text-xs text-slate-500">F&B • Pabrik</figcaption></figure>
-      <figure class="rounded-2xl bg-white border p-6"><blockquote class="text-sm">“SOP ringan dipakai harian, bukan pajangan.”</blockquote><figcaption class="mt-3 text-xs text-slate-500">Distribusi • Operasional</figcaption></figure>
+      <figure class="rounded-2xl bg-white border p-6 dark:bg-white/5 dark:border-white/10 dark:text-slate-200"><blockquote class="text-sm">“Laporan laba rugi keluar tiap tanggal 5. Buka 3 cabang tanpa pusing.”</blockquote><figcaption class="mt-3 text-xs text-slate-500 dark:text-slate-400">FMCG • Multi-cabang</figcaption></figure>
+      <figure class="rounded-2xl bg-white border p-6 dark:bg-white/5 dark:border-white/10 dark:text-slate-200"><blockquote class="text-sm">“HPP dihitung sampai gram terkecil. Biaya bahan turun 22%.”</blockquote><figcaption class="mt-3 text-xs text-slate-500 dark:text-slate-400">F&B • Pabrik</figcaption></figure>
+      <figure class="rounded-2xl bg-white border p-6 dark:bg-white/5 dark:border-white/10 dark:text-slate-200"><blockquote class="text-sm">“SOP ringan dipakai harian, bukan pajangan.”</blockquote><figcaption class="mt-3 text-xs text-slate-500 dark:text-slate-400">Distribusi • Operasional</figcaption></figure>
     </div>
   </div>
 </section>
 
 <!-- TIM -->
-<section id="tim-kami" class="bg-white">
+<section id="tim-kami" class="bg-white dark:bg-navydeep transition-colors">
   <div class="max-w-6xl mx-auto px-5 md:px-8 py-14 md:py-20 text-center">
-    <h2 class="text-2xl md:text-3xl font-extrabold">Tim yang sudah melaluinya</h2>
-    <p class="text-slate-600 mt-3">10+ tahun • 100+ portofolio • paham UMKM Indonesia</p>
+    <h2 class="text-2xl md:text-3xl font-extrabold dark:text-white">Tim yang sudah melaluinya</h2>
+    <p class="text-slate-600 dark:text-slate-300 mt-3">10+ tahun • 100+ portofolio • paham UMKM Indonesia</p>
   </div>
 </section>
 
 <!-- CTA + FORM -->
-<section id="cta" aria-labelledby="cta-title" class="bg-gradient-to-br from-navy to-navydeep text-white">
+<section id="cta" aria-labelledby="cta-title" class="bg-gradient-to-br from-navy to-navydeep text-white dark:from-black dark:to-navydeep transition-colors">
   <div class="max-w-6xl mx-auto px-5 md:px-8 py-14 md:py-20 grid md:grid-cols-2 gap-10">
     <div>
       <h2 id="cta-title" class="text-2xl md:text-3xl font-extrabold">Mulai dengan Free Business & Financial Check</h2>
       <p class="mt-3 text-slate-300">30 menit bersama Senior Consultant: bedah cash flow, 3 kebocoran terbesar, roadmap konkret. NDA protected.</p>
       <a href="https://wa.me/6285285513366" class="mt-6 inline-block font-bold bg-wa text-navydeep px-6 py-3 rounded-xl">Chat via WhatsApp</a>
     </div>
-    <form class="rounded-2xl bg-white text-slate-900 p-6 space-y-4" onsubmit="event.preventDefault();document.getElementById('formOk').classList.remove('hidden');">
+    <form class="rounded-2xl bg-white text-slate-900 p-6 space-y-4 dark:bg-white/5 dark:text-white dark:border dark:border-white/10" onsubmit="event.preventDefault();document.getElementById('formOk').classList.remove('hidden');">
       <h3 class="font-bold">Formulir Booking Sesi</h3>
-      <div><label class="text-sm font-semibold" for="nama">Nama Lengkap</label><input id="nama" required class="mt-1 w-full border border-slate-300 rounded-xl px-4 py-2.5" placeholder="Nama kamu" /></div>
-      <div><label class="text-sm font-semibold" for="wa">Nomor WhatsApp</label><input id="wa" required inputmode="tel" class="mt-1 w-full border border-slate-300 rounded-xl px-4 py-2.5" placeholder="08xx" /></div>
-      <div><label class="text-sm font-semibold" for="omset">Omset Bulanan</label><select id="omset" class="mt-1 w-full border border-slate-300 rounded-xl px-4 py-2.5"><option>Di bawah Rp 50 Juta</option><option>Rp 50 Jt - 250 Jt</option><option>Rp 250 Jt - 1 M</option><option>Di atas Rp 1 M</option></select></div>
-      <button class="w-full font-bold bg-navy text-white py-3 rounded-xl hover:bg-navydeep">KIRIM & JADWALKAN</button>
-      <p id="formOk" class="hidden text-sm font-semibold text-emerald-600">✓ Practice submit OK — hubungkan ke backend nanti.</p>
-      <p class="text-xs text-slate-500">🔒 Privasi terjamin. Practice only.</p>
+      <div><label class="text-sm font-semibold" for="nama">Nama Lengkap</label><input id="nama" required class="mt-1 w-full border border-slate-300 rounded-xl px-4 py-2.5 dark:bg-navydeep dark:border-white/20 dark:text-white dark:placeholder-slate-500" placeholder="Nama kamu" /></div>
+      <div><label class="text-sm font-semibold" for="wa">Nomor WhatsApp</label><input id="wa" required inputmode="tel" class="mt-1 w-full border border-slate-300 rounded-xl px-4 py-2.5 dark:bg-navydeep dark:border-white/20 dark:text-white dark:placeholder-slate-500" placeholder="08xx" /></div>
+      <div><label class="text-sm font-semibold" for="omset">Omset Bulanan</label><select id="omset" class="mt-1 w-full border border-slate-300 rounded-xl px-4 py-2.5 dark:bg-navydeep dark:border-white/20 dark:text-white"><option>Di bawah Rp 50 Juta</option><option>Rp 50 Jt - 250 Jt</option><option>Rp 250 Jt - 1 M</option><option>Di atas Rp 1 M</option></select></div>
+      <button class="w-full font-bold bg-navy text-white py-3 rounded-xl hover:bg-navydeep dark:bg-sky-400 dark:text-navydeep dark:hover:bg-sky-300">KIRIM & JADWALKAN</button>
+      <p id="formOk" class="hidden text-sm font-semibold text-emerald-600 dark:text-emerald-400">✓ Practice submit OK — hubungkan ke backend nanti.</p>
+      <p class="text-xs text-slate-500 dark:text-slate-400">🔒 Privasi terjamin. Practice only.</p>
     </form>
   </div>
 </section>
 </main>
 
-<footer class="bg-navy text-slate-300">
+<footer class="bg-navy text-slate-300 dark:bg-black dark:text-slate-400 transition-colors">
   <div class="max-w-6xl mx-auto px-5 md:px-8 py-10 flex flex-col md:flex-row gap-6 justify-between">
     <p class="font-extrabold text-white">Ramir<span class="text-slate-400"> Consulting</span> <span class="block font-normal text-sm text-slate-400">© 2026 Practice rebuild for learning.</span></p>
     <nav aria-label="Footer" class="flex gap-6 text-sm"><a href="#solusi" class="hover:text-white">Layanan</a><a href="#cara-kerja" class="hover:text-white">Cara Kerja</a><a href="#cta" class="hover:text-white">Kontak</a></nav>
@@ -216,6 +234,25 @@ tailwind.config = {
 </div>
 
 <script>
+// Dark mode toggle with localStorage persistence
+(function () {
+  var btn = document.getElementById('themeBtn');
+  var sun = document.getElementById('themeIconSun');
+  var moon = document.getElementById('themeIconMoon');
+  function sync() {
+    var isDark = document.documentElement.classList.contains('dark');
+    if (sun) sun.classList.toggle('hidden', isDark);
+    if (moon) moon.classList.toggle('hidden', !isDark);
+    if (btn) btn.setAttribute('aria-pressed', String(isDark));
+  }
+  if (btn) btn.addEventListener('click', function () {
+    var isDark = document.documentElement.classList.toggle('dark');
+    try { localStorage.setItem('ramir-theme', isDark ? 'dark' : 'light'); } catch (e) {}
+    sync();
+  });
+  sync();
+})();
+
 const btn = document.getElementById('menuBtn');
 const menu = document.getElementById('mobileMenu');
 btn.addEventListener('click', () => {
