@@ -20,7 +20,7 @@ Designer approves at: spec, visual preview, copy/brand, pre-prod gate
 |-------|----------------|------------|------------|
 | Spec | User story, tokens, copy final, acceptance criteria | Drafts spec from your brief | You say "approved" in writing |
 | Build | Visual direction, 1 screen anchor | Component code, responsive, dark mode | Preview URL matches Figma within 95% |
-| Integrate | Data shape approval | API wiring, form handling | Real data flows, no mock left |
+| Integrate | Data shape approval (e.g. Ramir Free Check fields: Nama, Perusahaan, WA, Omset 4 bands, Fokus 5 problems) | API wiring, form handling, WA prefill per service | Real data flows, no mock left |
 | Test | UX edge approval | Unit + E2E + a11y audit | All checks green, video proof |
 | Deploy | Go / no-go | Pipeline, rollback plan | Live URL + rollback command known |
 

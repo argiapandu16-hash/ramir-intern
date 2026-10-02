@@ -13,6 +13,7 @@
 | Oct 1 | Split `bah-agent` from `ramir-intern` | Keep shared agent clean, personal work separate | `bah-agent` commit `1631993`, 30 skills, pushed to personal + org |
 | Oct 2 | Push `bah-agent` to `Tim-tech-Ramir-2026/bah-agent` | Mentor invite to org | `org/main` = `1631993`, diff origin vs org = 0, personal repo kept |
 | Oct 2 | Enterprise NotebookLM package | Turn work into learnable sources | `learn/` 7 files (this set) |
+| Oct 2 | Re-anchor case study to REAL ramirconsulting.com | Trial pricing table too thin; real diagnostic funnel + 7 services + 3 products more rigorous | `04` rewritten from 6 live pages, `01/05/99` updated, pushed as `learn/` v2 |
 
 ## Remotes (Public Info Only)
 
@@ -26,7 +27,16 @@
 - Szeto Consultants: corporate trust via client logos + process depth
 - BizBlueprint: education-led, templates + playbooks
 - Konsulbisnis: local SMB proximity, WhatsApp-first
-- Ramir edge if we execute: diagnostic speed (7/14 days) + WhatsApp concierge + tiered transparency like Stripe
+- Ramir edge (REAL, verified Oct 2 2026): diagnostic speed (10-day avg reconstruction, 94% SAK accuracy) + WhatsApp concierge with per-service prefill + tooling proof (KURVA OS, SERAFIRA, INSIDERA, Supernova ERP option) + I-CARE values + Mekari Jurnal & Qontak partnership
+
+## Real-Site Sources (Fetched Oct 2 2026, Public Pages Only)
+
+- Homepage: https://ramirconsulting.com/ (hero, 4 solutions, stages, stats 100+/10d/94%/15-30%, clients, partners, testimonials, Free Check form)
+- Financial: https://ramirconsulting.com/consulting-service/financial-accounting/ (KURVA, 4 scopes, 4-step method)
+- ERP: https://ramirconsulting.com/consulting-service/erp-solutions/ (KURVA + Supernova option, multi-branch dashboard)
+- Market: https://ramirconsulting.com/consulting-service/market-intelligence/ (INSIDERA + SERAFIRA, lead/CRM/sales)
+- AI: https://ramirconsulting.com/consulting-service/ai-techstack/ (BAH Assistant, Auto Finance, SERA Portal, human-review rule)
+- About: https://ramirconsulting.com/about/ (I-CARE, 100+, 99.9%, 6 industries)
 
 ## Slide Narrative (Use in Deck)
 

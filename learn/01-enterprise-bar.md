@@ -23,14 +23,14 @@ Enterprise bar = a user can decide in 60 seconds, trust in 10 seconds, and compl
 ## 3. Key Idea Deep Dives
 
 ### 3.1 Decision Clarity > Visual Variety
-- Key Idea: Pricing is a decision UI, not a price list.
+- Key Idea: Pricing is a decision UI, not a price list. For consultative sales, the quiz + diagnostic IS the pricing UI.
 - Why It Matters: UMKM owners compare consulting vs doing nothing. Enterprise leads compare vendor risk.
-- Example from Ramir: Current `ramir-consulting-light.html` has an omset dropdown but no tiers. Enterprise upgrade = 3 tiers (Starter Diagnostic / Growth Sprint / Enterprise Retainer) + "Most popular for Rp 250Jt–1M omset" badge + omset quiz that recommends a tier.
+- Example from Ramir (REAL site ramirconsulting.com, Oct 2 2026): no public tiers. Decision UI = omset selector (4 bands) + problem selector (5 focuses) → Free 30-min Business & Financial Check via WhatsApp +62 852-8551-3366. Enterprise upgrade = keep diagnostic, add scope transparency per service (days + deliverables + outcome range, e.g. `Rekonstruksi 12 bulan + laporan SAK dalam 10 hari`).
 
 ### 3.2 Trust in 10 Seconds
 - Key Idea: Trust = specificity.
-- Why It Matters: "Trusted by many" converts at ~0%. "42 UMKM audited in Surabaya, avg +18% margin in 90 days" converts.
-- Example from Ramir: Add stat band under hero: clients count, avg outcome, days to roadmap. Link 1 case study per tier.
+- Why It Matters: "Trusted by many" converts at ~0%. `FMCG Surabaya: laporan laba rugi tiap tgl 5, buka 3 cabang baru` converts.
+- Example from Ramir (REAL): stat band `100+ UMKM & Menengah / 10 Hari rata-rata / 94% akurasi SAK / 15-30% margin dicegah` + logos FishLog, Telkom Indonesia, Pertamina Patra Niaga, Bella Food, D'Burger + partners Mekari Jurnal & Qontak + I-CARE values. Gap = cases anonymized; upgrade = add scope+duration+outcome even when name hidden.
 
 ### 3.3 Copy Is Interface
 - Key Idea: Every headline is a button label for the brain.

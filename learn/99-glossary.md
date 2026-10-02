@@ -4,21 +4,21 @@
 
 ## Design / Frontend (1–10)
 
-1. **Design token** — Named value for color/type/space. Example: `navy #022135`. Visual: color swatch card.
-2. **Type scale** — Stepped font sizes with roles. Example: H1 36/44, body 15/24. Visual: scale ladder.
-3. **Spacing rhythm** — 8pt grid (8/16/24/48/80). Example: section 80, card 24. Visual: grid overlay.
-4. **Responsive breakpoint** — Layout switch point. Example: `md: 768, lg: 1024`. Visual: 360/768/1280 frames.
-5. **Dark mode** — Alternate theme via class. Example: `dark:bg-navydeep`. Visual: light/dark split.
-6. **Focus-visible** — Keyboard focus ring. Example: 2px outline offset 3px. Visual: Tab ring on CTA.
-7. **Contrast ratio** — Text vs bg luminance. Example: 4.5:1 for body. Visual: contrast checker.
-8. **CLS (Cumulative Layout Shift)** — Visual jump score. Example: <0.1. Visual: before/after filmstrip.
-9. **CTA** — Primary action. Example: Konsultasi Gratis → WhatsApp. Visual: pill button.
-10. **Wireframe → Prototype** — Low-fi to clickable. Example: Pricing list → HTML. Visual: gray boxes → real UI.
+1. **Design token** — Named value for color/type/space. Example: Ramir navy `#022135`, Inter 400/600/800. Visual: color swatch card.
+2. **Type scale** — Stepped font sizes with roles. Example: Ramir hero H1 + stat band numbers. Visual: scale ladder.
+3. **Spacing rhythm** — 8pt grid (8/16/24/48/80). Example: Ramir solution cards grid. Visual: grid overlay.
+4. **Responsive breakpoint** — Layout switch point. Example: Ramir homepage 360/768/1280. Visual: 360/768/1280 frames.
+5. **Dark mode** — Alternate theme via class. Example: trial `dark:bg-navydeep` (practice only). Visual: light/dark split.
+6. **Focus-visible** — Keyboard focus ring. Example: Ramir booking form (Nama, WA, Omset) Tab order. Visual: Tab ring on CTA.
+7. **Contrast ratio** — Text vs bg luminance. Example: Ramir navy on white, 4.5:1 body. Visual: contrast checker.
+8. **CLS (Cumulative Layout Shift)** — Visual jump score. Example: Ramir hero `Website-UI-4.png` must not shift. Visual: before/after filmstrip.
+9. **CTA** — Primary action. Example: Ramir `Konsultasi Gratis → wa.me/6285285513366` with prefilled service text. Visual: pill button.
+10. **Wireframe → Prototype** — Low-fi to clickable. Example: trial `ramir-consulting-light.html` rebuild of real homepage. Visual: gray boxes → real UI.
 
 ## Backend / Data / AI (11–20)
 
-11. **API** — Contract for data exchange. Example: form POST → WhatsApp link. Visual: plug diagram.
-12. **Auth** — Prove who you are. Example: future LMS login. Visual: lock + key.
+11. **API** — Contract for data exchange. Example: Ramir booking form → WhatsApp prefill. Visual: plug diagram.
+12. **Auth** — Prove who you are. Example: future SERA client portal login (vs public Free Check now). Visual: lock + key.
 13. **RLS (Row Level Security)** — DB rule per user. Example: Supabase lesson — missing RLS exposed 16k DBs. Visual: table with lock rows.
 14. **Migration** — Move data/schema safely. Example: bah-agent split. Visual: boxes moving with rollback arrow.
 15. **RAG** — Retrieve + generate with docs. Example: NotebookLM over learn/. Visual: docs → answer with citations.
